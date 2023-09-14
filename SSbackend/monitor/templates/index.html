@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% block content %}
+<div style="text-align: center">
+  <h1 style="font-size: 100px">Welcome to the Security System</h1>
+  <p style="font-size: 25px">
+    This system uses opencv to perfom body detection and alert users when there
+    is someone on the cameras
+  </p>
+  <form action="/launch">
+    <button
+      
+      style="font-size: 30px"
+      class="btn btn-primary"
+    >
+  </form>
+    Launch
+  </button>
+</div>
+{% endblock %}
