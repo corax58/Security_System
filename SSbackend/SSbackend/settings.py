@@ -103,10 +103,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True
 
 # White listing the localhost:3000 port
 # for React
 CORS_ORIGIN_WHITELIST = ("http://localhost:3000", "http://localhost:5173")
+
+CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
 
 
 # Internationalization

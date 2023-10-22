@@ -1,47 +1,37 @@
 import React, { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
-import { Text } from "@chakra-ui/react";
+import { SimpleGrid, Text } from "@chakra-ui/react";
 import axios from "axios";
+import useCameras from "../hooks/useCameras";
+import CameraCard from "./CameraCard";
+import { Camera } from "../hooks/useCameras";
 
-interface Camera {
-  id: number;
-  name: string;
-  ip_address: string;
-  monitored: boolean;
+interface Props {
+  cameras: Camera[];
 }
-
-interface FetchCameraResponse {
-  count: number;
-  results: Camera[];
-}
-
-const CameraGrid = () => {
-  const [cameras, setCameras] = useState<Camera[]>([]);
-  const [error, setError] = useState();
-
-  //   useEffect(() => {
-  //     apiClient
-  //       .get<FetchCameraResponse>("/cameras")
-  //       .then((res) => setCameras(res.data.results))
-  //       .catch((err) => setError(err.message));
-  //   });
-
-  useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/api/cameras/")
-      .then((res) => setCameras(res.data))
-      .catch((err) => setError(err.message));
-  });
+const CameraGrid = ({ cameras }: Props) => {
+  const choose = (camera: string) => {
+    cameras.filter((cam) => cam.name == camera);
+  };
 
   return (
     <>
       {/* {console.log(cameras)} */}
-      {error && <Text>{error}</Text>}
-      <ul>
+
+      <SimpleGrid
+        columns={{
+          sm: 1,
+          md: 2,
+          lg: 3,
+          xl: 5,
+        }}
+        padding="10px"
+        spacing={3}
+      >
         {cameras?.map((camera) => (
-          <li key={camera.id}> {camera.name} </li>
+          <CameraCard key={camera.id} camera={camera} />
         ))}
-      </ul>
+      </SimpleGrid>
     </>
   );
 };
